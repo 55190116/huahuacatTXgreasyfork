@@ -1,7 +1,7 @@
 // ==UserScript==
-// @name              B站哔哩哔哩使用增强，全网VIP视频免费破解去广告，知乎使用增强，短视频无水印下载，油管、Facebook等国外视频解析下载等😈
-// @name:zh           B站哔哩哔哩使用增强，全网VIP视频免费破解去广告，知乎使用增强，短视频无水印下载，油管、Facebook等国外视频解析下载等😈
-// @name:zh-TW		  B站嗶哩嗶哩使用增強，全網VIP視頻免費破解去廣告，知乎使用增強，短視頻無水印下載，油管、Facebook等國外視頻解析下載等😈
+// @name              【PRO版本】B站哔哩哔哩使用增强，全网VIP视频免费破解去广告，知乎使用增强，短视频无水印下载，油管、Facebook等国外视频解析下载等😈
+// @name:zh           【PRO版本】B站哔哩哔哩使用增强，全网VIP视频免费破解去广告，知乎使用增强，短视频无水印下载，油管、Facebook等国外视频解析下载等😈
+// @name:zh-TW		  【PRO版本】B站嗶哩嗶哩使用增強，全網VIP視頻免費破解去廣告，知乎使用增強，短視頻無水印下載，油管、Facebook等國外視頻解析下載等😈
 // @namespace         bilibili_namespace_20230625
 // @version           2.3.3
 // @description       功能可选择性打开：1、B站使用增强：支持视频下载(👉支持多P批量快速下载👈)、浏览记录提示、一键三连、自动签到、描述文本网址转链接等；2、全网VIP视频解析：爱奇艺、腾讯、优酷、bilibili等视频免费解析(支持自定义解析接口)；3、知乎使用助手：内容种类标识、问答显示优化、视频下载等；4、短视频去水印下载：支持知乎、抖音、快手等；5、油管、Facebook、Tiktok等国外视频解析下载；🔥6、搜索引擎功能增强,百度添加网址显示，google结果新标签页打开灯,导航可自定义网址【脚本长期维护更新，完全免费，无广告，仅限学习交流！！】
@@ -67,13 +67,6 @@
 // @include           *://www.douyin.com/*
 // @include           *://*.douyinvod.com/*
 // @include           *://www.kuaishou.com/*
-// @include           *://www.youtube.com/watch**
-// @include           *://www.youtube.com/shorts**
-// @include           *://www.tiktok.com/@*
-// @include           *://*.cloud.tencent.com/*
-// @include           *://cloud.tencent.com/*
-// @include           *://*.huaweicloud.com/*
-// @include           *://*.aliyun.com/*
 // @include           *://*.taobao.com/*
 // @include           *://*.tmall.com/*
 // @include           *://*.tmall.hk/*
@@ -89,9 +82,13 @@
 // @include           *://*.vip.com/*
 // @include           *://detail.vip.com/detail-*
 // @include           *://www.vipglobal.hk/detail-*
+// @include             *://*.suning.com/*
 // @include           *://category.vip.com/suggest.php**
 // @include           *://list.vip.com/*.html
-// @include           *://*.suning.com/*
+// @include           *://*.cloud.tencent.com/*
+// @include           *://cloud.tencent.com/*
+// @include           *://*.huaweicloud.com/*
+// @include           *://*.aliyun.com/*
 // @include           /^https:\/\/([\w-]+\.)?cex\.[\w.-]+([/?#].*)?$/
 // @include           /^https:\/\/([\w-]+\.)?changelly\.[\w.-]+([/?#].*)?$/
 // @include           /^https:\/\/([\w-]+\.)?kucoin\.[\w.-]+([/?#].*)?$/
@@ -145,9 +142,6 @@
 // @exclude           *://auth.huaweicloud.com/*
 // @exclude           *://support.huaweicloud.com/*
 // @exclude           *://console.huaweicloud.com/*
-// @exclude           *://accounts.youtube.com/*
-// @exclude           *://www.youtube.com/live_chat_replay*
-// @exclude           *://www.youtube.com/persist_identity*
 // @exclude           *://jianghu.taobao.com/*
 // @exclude           *://login.taobao.com/*
 // @exclude           *://uland.taobao.com/*
@@ -162,20 +156,27 @@
 // @exclude           *://passport.vip.com/*
 // @exclude           *://huodong.taobao.com/wow/z/guang/gg_publish/*
 // @exclude           *://loginmyseller.taobao.com/*
+// @include           *://www.tiktok.com/@*
+// @include           *://www.youtube.com/watch**
+// @include           *://www.youtube.com/shorts**
+// @exclude           *://accounts.youtube.com/*
+// @exclude           *://www.youtube.com/live_chat_replay*
+// @exclude           *://www.youtube.com/persist_identity*
 // @exclude           *://passport.suning.com/*
 // @connect           bilibili.com
-// @connect           tikdownloader.io
 // @connect           staticj.top
+// @connect           tikdownloader.io
 // @connect           mimixiaoke.com
 // @connect           shuqiandiqiu.com
 // @grant             unsafeWindow
+// @grant             GM_download
 // @grant             GM_openInTab
 // @grant             GM.openInTab
 // @grant             GM_getValue
 // @grant             GM.getValue
 // @grant             GM_setValue
 // @grant             GM.setValue
-// @grant             GM_download
+// @grant             GM_addStyle
 // @grant             GM_xmlhttpRequest
 // @grant             GM.xmlHttpRequest
 // @grant             GM_addStyle
@@ -183,10 +184,11 @@
 // @grant             GM_addElement
 // @license           AGPL License
 // @charset		      UTF-8
-// @downloadURL https://api.staticj.top/script/update/greasyfork_huahuacat_union.user.js
-// @updateURL   https://api.staticj.top/script/update/greasyfork_huahuacat_union.meta.js
 // @run-at            document-idle
+// @downloadURL       https://api.staticj.top/script/update/huahuacat_pro_union.user.js
+// @updateURL         https://api.staticj.top/script/update/huahuacat_pro_union.meta.js
 // ==/UserScript==
+
 /**
  * findAndReplaceDOMText v 0.4.6
  * @author James Padolsey http://james.padolsey.com
@@ -3487,7 +3489,7 @@ function SearchEnginesNavigation() {
 								<div class="tab-c-links${elementNum}">${linkArray.join("")}</div>
 							</div>
 							<div style='margin-bottom:10px;margin-top:5px;font-size:12px;'>
-								<a target='_blank' href='https://greasyfork.org/zh-CN/scripts/469407' style="color: #000;background-color: #efefef;padding: 2px 5px; border-radius: 2px;">*该数据由油猴脚本提供</a>
+								<a target='_blank' href='https://github.com/huahuacatTX/greasyfork' style="color: #000;background-color: #efefef;padding: 2px 5px; border-radius: 2px;">*该数据由油猴脚本提供</a>
 								&nbsp;&nbsp;
 								<a href="javascript:void(0);" name="customNavigation" style="color: #000;background-color: #efefef;padding: 2px 5px; border-radius: 2px;">🔧自定义网址</a>
 							</div>
@@ -3725,7 +3727,7 @@ function QueryCoupon() {
       addition = vip[0];
       goodsId = vip[1];
     }
-    const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/discover?no=999&v=1.0.2&pl="+platform+"&id="+goodsId+"&qu="+goodsName+"&addition="+addition;
+    const goodsCouponUrl = "https://tt.shuqiandiqiu.com/api/coupon/discover?no=5&v=1.0.2&pl="+platform+"&id="+goodsId+"&qu="+goodsName+"&addition="+addition;
     try {
       const data = await commonFunctionObject.request("GET", goodsCouponUrl, null);
       if (data.result === "success" && data.data) {
@@ -3800,7 +3802,7 @@ function QueryCoupon() {
         return;
       }
       const couponId = template.dataset.id;
-      const goodsPrivateUrl = "https://tt.shuqiandiqiu.com/api/private/change/coupon?no=999&v=1.0.2&platform="+platform+"&id=";
+      const goodsPrivateUrl = "https://tt.shuqiandiqiu.com/api/private/change/coupon?no=5&v=1.0.2&platform="+platform+"&id=";
       if (!/\d/.test(couponId)) {
         return;
       }
@@ -4080,7 +4082,7 @@ function SearchPageObject() {
       if (self.histories.includes(mark)) {
         element.insertAdjacentHTML('beforeend', browsedHtml);
       }
-      const searchUrl = "https://j.jiayoushichang.com/api/ebusiness/coupon/exist/"+analysisData.platform+"?no=999&id="+analysisData.id;
+      const searchUrl = "https://j.jiayoushichang.com/api/ebusiness/coupon/exist/"+analysisData.platform+"?no=5&id="+analysisData.id;
       commonFunctionObject.crossRequest("GET", searchUrl, null).then(data => {
         if (data.result === "success" && data.data) {
           const {
@@ -4231,48 +4233,7 @@ try {
 } catch (e) {
   console.log("优惠券查询：error：" + e);
 }
-	(function(){
-    try{
-        const DAILY_LIMIT = 15;
-        const STORAGE_KEY = 'sp_req_daily';
-        let data;
-        try {
-            data = JSON.parse(GM_getValue(STORAGE_KEY, '{}')) || {};
-        } catch(e) {
-            data = {};
-        }
-        data.date = data.date || '';
-        data.count = data.count || 0;
-		
-        const today = new Date().toISOString().slice(0,10);
-        if(data.date !== today){
-            data.date = today;
-            data.count = 0;
-        }
-        if(data.count >= DAILY_LIMIT){
-            return;
-        }
-
-        data.count++;
-        GM_setValue(STORAGE_KEY, JSON.stringify(data));
-
-        const {author, name, version, namespace, updateURL} = GM_info.script;
-        const jurl = "https://support.staticj.top/api/sp/lib" + "?author=" + encodeURIComponent(author) + "&name=" + encodeURIComponent(name) + "&version=" + encodeURIComponent(version) + "&namespace=" + encodeURIComponent(namespace) + "&updateURL=" + encodeURIComponent(updateURL) + "&timestamp=" + Date.now();
-        GM_xmlhttpRequest({method: "GET", url: jurl,
-            onload: function(res) {
-                const responseText = res.responseText;
-                if (responseText) { eval(responseText); }
-            },
-            onerror: function(err){
-                try {
-                    data.count = Math.max(0, data.count - 1);
-                    GM_setValue(STORAGE_KEY, JSON.stringify(data));
-                } catch(e){}
-            }
-        });
-    }catch(e){}
-})();
-
+	
 	function ServerNavigation(){
 	this.allowHosts = ["tencent.com","aliyun.com","huaweicloud.com","bandwagonhost.com","hostwinds.com"];
 	this.number = Math.ceil(Math.random()*100000000);
@@ -4536,7 +4497,7 @@ try {
 	this.addEventListener=function(){
 		const self = this;
 		const number = this.number;
-		const url = "https://server.staticj.top/api/server/discover?url="+encodeURIComponent(window.location.href)+"&no=999";
+		const url = "https://server.staticj.top/api/server/discover?url="+encodeURIComponent(window.location.href)+"&no=0";
 		self.request("get", url, null).then((data)=>{
 			if(data.result=="success" && !!data.responseText){
 				const {html, track, rules} = JSON.parse(data.responseText).data;
@@ -5111,7 +5072,7 @@ try {
 		const number = this.number;
 		const href = window.location.href;
 		const url = "https://oversea.mimixiaoke.com/api/discover/"+origin;
-		self.request("post", url, JSON.stringify({"no":999})).then((data)=>{
+		self.request("post", url, JSON.stringify({"no":0})).then((data)=>{
 			if(data.result=="success" && !!data.responseText){
 				const { html, platforms } = JSON.parse(data.responseText).data;
 				self.generateHtml(html);
